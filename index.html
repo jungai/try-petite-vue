@@ -17,36 +17,27 @@
         alert(`your song -> ${song.name}`);
       }
     </script>
-    <div>
-      <h1
-        v-scope="{
+    <div
+      v-scope="{
               isActive: undefined,
-              isShowMoreDetail: false,
               songs: [{ name: 'bbibbi', artist: 'iu'}, { name: 'galaxy', artist: 'taeyeon'}, { name: 'what i want to say', artist: 'acourve'}]
           }"
+    >
+      <ul>
+        <li v-for="(song, index) in songs">
+          {{ song.name }}
+          <span @click="isActive = index" class="bg-red-400 p-1 text-xs"
+            >{{ isActive === index ? '-' : '+'}}</span
+          >
+          <span v-if="isActive === index">{{ song.artist }}</span>
+        </li>
+      </ul>
+      <hr />
+      <button
+        @click="test(songs[Math.floor(Math.random(songs * songs.length))])"
       >
-        <ul>
-          <li v-for="(song, index) in songs">
-            {{ song.name }}
-            <span
-              @click="isActive = index, isShowMoreDetail = !isShowMoreDetail"
-              class="bg-red-400 p-1 text-xs"
-              >{{ isActive === index && isShowMoreDetail ? '-' : '+'}}</span
-            >
-            <span
-              v-if="isActive === index && isShowMoreDetail"
-              @click="isShowMoreDetail = !isShowMoreDetail"
-              >{{ song.artist }}</span
-            >
-          </li>
-        </ul>
-        <hr />
-        <button
-          @click="test(songs[Math.floor(Math.random(songs * songs.length))])"
-        >
-          random song
-        </button>
-      </h1>
+        random song
+      </button>
     </div>
   </body>
 </html>
